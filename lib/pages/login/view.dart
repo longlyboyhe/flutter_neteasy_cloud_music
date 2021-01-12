@@ -36,80 +36,67 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
               ),
             ),
             _LoginAnimatedWidget(state, dispatch, viewService),
+            Container(
+              margin: EdgeInsets.only(top: ScreenUtil().setWidth(30)),
+              child: Text(
+                'Welcome Back!',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                  fontSize: 34,
+                ),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.only(top: ScreenUtil().setWidth(3)),
+              child: Text(
+                'The Flutter Netease Cloud Music App',
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+            VEmptyView(50),
+            TextField(
+              controller: state.phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                  hintText: 'Phone',
+                  prefixIcon: Icon(
+                    Icons.phone_iphone,
+                    color: Colors.grey,
+                  )),
+            ),
+            VEmptyView(40),
+            TextField(
+              obscureText: true,
+              controller: state.pwdController,
+              decoration: InputDecoration(
+                  hintText: 'Password',
+                  prefixIcon: Icon(
+                    Icons.lock,
+                    color: Colors.grey,
+                  )),
+            ),
+            VEmptyView(120),
+            CommonButton(
+              callback: () {
+                String phone = state.phoneController.text;
+                String pwd = state.pwdController.text;
+                if (phone.isEmpty || pwd.isEmpty) {
+                  showToast('请输入账号或者密码');
+                  return;
+                }
+
+                ///发起登陆请求Action，请求成功之后，保存用户信息，跳转到首页
+              },
+              content: 'Login',
+              width: double.infinity,
+            )
           ],
         ),
       ),
-    ),
-  );
-}
-
-Widget _LoginWidget(LoginState state, Dispatch dispatch, ViewService viewService) {
-
-  return Theme(
-    data: ThemeData(primaryColor: Colors.red),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Container(
-          margin: EdgeInsets.only(top: ScreenUtil().setWidth(30)),
-          child: Text(
-            'Welcome Back!',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-              fontSize: 34,
-            ),
-          ),
-        ),
-        Container(
-          margin: EdgeInsets.only(top: ScreenUtil().setWidth(3)),
-          child: Text(
-            'The Flutter Netease Cloud Music App',
-            style: TextStyle(
-              color: Colors.grey,
-              fontSize: 14,
-            ),
-          ),
-        ),
-        VEmptyView(50),
-        TextField(
-          controller: state.phoneController,
-          keyboardType: TextInputType.phone,
-          decoration: InputDecoration(
-              hintText: 'Phone',
-              prefixIcon: Icon(
-                Icons.phone_iphone,
-                color: Colors.grey,
-              )),
-        ),
-        VEmptyView(40),
-        TextField(
-          obscureText: true,
-          controller: state.pwdController,
-          decoration: InputDecoration(
-              hintText: 'Password',
-              prefixIcon: Icon(
-                Icons.lock,
-                color: Colors.grey,
-              )),
-        ),
-        VEmptyView(120),
-        CommonButton(
-          callback: () {
-            String phone = state.phoneController.text;
-            String pwd = state.pwdController.text;
-            if (phone.isEmpty || pwd.isEmpty) {
-              showToast('请输入账号或者密码');
-              return;
-            }
-
-            ///发起登陆请求Action，请求成功之后，保存用户信息，跳转到首页
-          },
-          content: 'Login',
-          width: double.infinity,
-        )
-      ],
     ),
   );
 }
@@ -120,7 +107,6 @@ Widget _LoginAnimatedWidget(
     opacity: state.opacityTween.evaluate(state.animation),
     child: Container(
       margin: EdgeInsets.only(top: state.offsetTween.evaluate(state.animation)),
-      child: _LoginWidget(state, dispatch,viewService),
     ),
   );
 }
