@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter_netease_cloud_music/pages/login/page.dart';
 import 'package:flutter_netease_cloud_music/pages/main/page.dart';
 import 'package:flutter_netease_cloud_music/pages/splash/page.dart';
 
@@ -7,11 +8,12 @@ class RouteConfig {
   ///定义你的路由名称比如   static final String routeHome = 'page/home';
   ///闪屏页
   static const String splashPage = 'pages/splash';
+
   ///主模块
   static const String mainPage = 'page/main';
 
   ///登录
-  static const String loginPage = 'page/main/login';
+  static const String loginPage = 'page/login';
 
   ///注册
   static const String registerPage = 'page/main/login/register';
@@ -27,6 +29,7 @@ class RouteConfig {
   static final AbstractRoutes routes = PageRoutes(
     pages: <String, Page<Object, dynamic>>{
       RouteConfig.splashPage: SplashPage(),
+      RouteConfig.loginPage: LoginPage(),
       RouteConfig.mainPage: MainPage(),
     },
   );

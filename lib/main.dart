@@ -29,7 +29,7 @@ class _MyAppState extends State<MyApp> {
       //   GlobalMaterialLocalizations.delegate,
       //   GlobalWidgetsLocalizations.delegate,
       // ],
-      home: RouteConfig.routes.buildPage(RouteConfig.mainPage, null), //作为默认页面
+      home: RouteConfig.routes.buildPage(RouteConfig.splashPage, null), //作为默认页面
       onGenerateRoute: (RouteSettings settings) {
         //ios页面切换风格
         return CupertinoPageRoute(builder: (BuildContext context) {
