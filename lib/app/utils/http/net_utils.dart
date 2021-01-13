@@ -7,27 +7,27 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_cloud_music/app/utils/show/toast_util.dart';
-import 'package:flutter_netease_cloud_music/pages/model/album.dart';
-import 'package:flutter_netease_cloud_music/pages/model/daily_songs.dart';
-import 'package:flutter_netease_cloud_music/pages/model/hot_search.dart';
-import 'package:flutter_netease_cloud_music/pages/model/lyric.dart';
-import 'package:flutter_netease_cloud_music/pages/model/mv.dart';
-import 'package:flutter_netease_cloud_music/pages/model/play_list.dart';
-import 'package:flutter_netease_cloud_music/pages/model/recommend.dart';
-import 'package:flutter_netease_cloud_music/pages/model/search_result.dart' hide User;
-import 'package:flutter_netease_cloud_music/pages/model/song_comment.dart' hide User;
-import 'package:flutter_netease_cloud_music/pages/model/song_detail.dart';
-import 'package:flutter_netease_cloud_music/pages/model/top_list.dart';
-import 'package:flutter_netease_cloud_music/pages/model/user/user.dart';
-import 'package:flutter_netease_cloud_music/pages/model/banner.dart' as HomeBanner;
-import 'package:flutter_netease_cloud_music/pages/model/event.dart'as Event;
-import 'package:flutter_netease_cloud_music/pages/model/user/user_detail.dart';
+import 'package:flutter_netease_cloud_music/model/recommend.dart';
+import 'package:flutter_netease_cloud_music/model/album.dart';
+import 'package:flutter_netease_cloud_music/model/daily_songs.dart';
+import 'package:flutter_netease_cloud_music/model/hot_search.dart';
+import 'package:flutter_netease_cloud_music/model/lyric.dart';
+import 'package:flutter_netease_cloud_music/model/mv.dart';
+import 'package:flutter_netease_cloud_music/model/play_list.dart';
+import 'package:flutter_netease_cloud_music/model/search_result.dart' hide User;
+import 'package:flutter_netease_cloud_music/model/song_comment.dart' hide User;
+import 'package:flutter_netease_cloud_music/model/song_detail.dart';
+import 'package:flutter_netease_cloud_music/model/top_list.dart';
+import 'package:flutter_netease_cloud_music/model/user/user.dart';
+import 'package:flutter_netease_cloud_music/model/banner.dart' as HomeBanner;
+import 'package:flutter_netease_cloud_music/model/event.dart'as Event;
+import 'package:flutter_netease_cloud_music/model/user/user_detail.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/loading.dart';
 import 'package:path_provider/path_provider.dart';
 
 class NetUtils {
   static Dio _dio;
-  static final String baseUrl = 'http://118.24.63.15';
+  static final String baseUrl = 'http://localhost';
   static Future<List<InternetAddress>> _fm10s =
       InternetAddress.lookup("ws.acgvideo.com");
 
@@ -35,39 +35,39 @@ class NetUtils {
     Directory tempDir = await getTemporaryDirectory();
     String tempPath = tempDir.path;
     CookieJar cj = PersistCookieJar(dir: tempPath);
-    _dio = Dio(BaseOptions(baseUrl: '$baseUrl:1020', followRedirects: false))
+    _dio = Dio(BaseOptions(baseUrl: '$baseUrl:3000', followRedirects: false))
       ..interceptors.add(CookieManager(cj))
       ..interceptors
           .add(LogInterceptor(responseBody: true, requestBody: true));
     
     // 海外華人可使用 nondanee/UnblockNeteaseMusic
-    (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
-        (client) {
-      client.findProxy = (uri) {
-        var host = uri.host;
-        if (host == 'music.163.com' ||
-            host == 'interface.music.163.com' ||
-            host == 'interface3.music.163.com' ||
-            host == 'apm.music.163.com' ||
-            host == 'apm3.music.163.com' ||
-            host == '59.111.181.60' ||
-            host == '223.252.199.66' ||
-            host == '223.252.199.67' ||
-            host == '59.111.160.195' ||
-            host == '59.111.160.197' ||
-            host == '59.111.181.38' ||
-            host == '193.112.159.225' ||
-            host == '118.24.63.156' ||
-            host == '59.111.181.35' ||
-            host == '39.105.63.80' ||
-            host == '47.100.127.239' ||
-            host == '103.126.92.133' ||
-            host == '103.126.92.132') {
-          return 'PROXY YOURPROXY;DIRECT';
-        }
-        return 'DIRECT';
-      };
-    };
+    // (_dio.httpClientAdapter as DefaultHttpClientAdapter).onHttpClientCreate =
+    //     (client) {
+    //   client.findProxy = (uri) {
+    //     var host = uri.host;
+    //     if (host == 'music.163.com' ||
+    //         host == 'interface.music.163.com' ||
+    //         host == 'interface3.music.163.com' ||
+    //         host == 'apm.music.163.com' ||
+    //         host == 'apm3.music.163.com' ||
+    //         host == '59.111.181.60' ||
+    //         host == '223.252.199.66' ||
+    //         host == '223.252.199.67' ||
+    //         host == '59.111.160.195' ||
+    //         host == '59.111.160.197' ||
+    //         host == '59.111.181.38' ||
+    //         host == '193.112.159.225' ||
+    //         host == '118.24.63.156' ||
+    //         host == '59.111.181.35' ||
+    //         host == '39.105.63.80' ||
+    //         host == '47.100.127.239' ||
+    //         host == '103.126.92.133' ||
+    //         host == '103.126.92.132') {
+    //       return 'PROXY YOURPROXY;DIRECT';
+    //     }
+    //     return 'DIRECT';
+    //   };
+    // };
   }
 
   static Future<Response> _get(

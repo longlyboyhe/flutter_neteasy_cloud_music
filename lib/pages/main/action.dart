@@ -1,10 +1,13 @@
 import 'package:fish_redux/fish_redux.dart';
 
 //TODO replace with your own action
-enum MainAction { action }
+enum MainAction {
+  ///切换tab
+  selectTab
+}
 
 class MainActionCreator {
-  static Action onAction() {
-    return const Action(MainAction.action);
+  static Action selectTab(int index) {
+    return Action(MainAction.selectTab, payload: index);
   }
 }

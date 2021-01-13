@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter_netease_cloud_music/pages/main/main_component.dart';
 
 import 'effect.dart';
 import 'reducer.dart';
@@ -18,5 +19,8 @@ class MainPage extends Page<MainState, Map<String, dynamic>> {
                 }),
             middleware: <Middleware<MainState>>[
             ],);
-
+  @override
+  ComponentState<MainState> createState() {
+    return MainComponentState();
+  }
 }

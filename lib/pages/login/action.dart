@@ -1,6 +1,6 @@
 import 'package:fish_redux/fish_redux.dart';
 
-enum LoginAction { action, login }
+enum LoginAction { action, login, }
 
 class LoginActionCreator {
   static Action onAction() {
@@ -8,6 +8,6 @@ class LoginActionCreator {
   }
 
   static Action onLoginAction() {
-    return const Action(LoginAction.login);
+    return  Action(LoginAction.login);
   }
 }

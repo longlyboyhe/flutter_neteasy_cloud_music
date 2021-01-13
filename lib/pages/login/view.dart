@@ -88,7 +88,7 @@ Widget buildView(LoginState state, Dispatch dispatch, ViewService viewService) {
                   showToast('请输入账号或者密码');
                   return;
                 }
-
+                dispatch(LoginActionCreator.onLoginAction());
                 ///发起登陆请求Action，请求成功之后，保存用户信息，跳转到首页
               },
               content: 'Login',

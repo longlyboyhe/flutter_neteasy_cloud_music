@@ -19,16 +19,18 @@ Effect<SplashState> buildEffect() {
 
 void _toMainPage(Context<SplashState> ctx) async{
   ///有用回信息，说明已经登陆
-  // if(SpUtil.get(Constants.USER_INFO) != null){
-  //   await NetUtils.refreshLogin(ctx.context).then((value){
-  //     if(value.data != -1){
-  //       Navigator.pushNamed(ctx.context, RouteConfig.mainPage);
-  //     }
-  //   });
-  // }else{
+  if(SpUtil.get(Constants.USER_INFO) != null){
+    await NetUtils.refreshLogin(ctx.context).then((value){
+      if(value!=null&&value.data != -1){
+        Navigator.pushNamed(ctx.context, RouteConfig.mainPage);
+      }else{
+        Navigator.pushNamed(ctx.context, RouteConfig.loginPage);
+      }
+    });
+  }else{
     ///无会用信息，说明车位已满
-    Navigator.pushNamed(ctx.context, RouteConfig.loginPage);
-  // }
+   Navigator.pushNamed(ctx.context, RouteConfig.loginPage);
+  }
 
 }
 

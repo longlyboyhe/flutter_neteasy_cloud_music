@@ -4,6 +4,7 @@ class User {
   String _msg;
   Account _account;
   Profile _profile;
+  String _token;
   List<Bindings> _bindings;
 
   User(
@@ -12,12 +13,14 @@ class User {
         String msg,
       Account account,
       Profile profile,
+        String token,
       List<Bindings> bindings}) {
     this._loginType = loginType;
     this._code = code;
     this._msg = msg;
     this._account = account;
     this._profile = profile;
+    this._token = token;
     this._bindings = bindings;
   }
 
@@ -44,6 +47,13 @@ class User {
 
   set profile(Profile profile) => _profile = profile;
 
+
+  String get token => _token;
+
+  set token(String value) {
+    _token = value;
+  }
+
   List<Bindings> get bindings => _bindings;
 
   set bindings(List<Bindings> bindings) => _bindings = bindings;
@@ -52,22 +62,24 @@ class User {
     _loginType = json['loginType'];
     _code = json['code'];
     _msg = json['msg'];
+    _token = json['token'];
     _account =
-        json['account'] != null ? new Account.fromJson(json['account']) : null;
+        json['account'] != null ? Account.fromJson(json['account']) : null;
     _profile =
-        json['profile'] != null ? new Profile.fromJson(json['profile']) : null;
+        json['profile'] != null ? Profile.fromJson(json['profile']) : null;
     if (json['bindings'] != null) {
-      _bindings = new List<Bindings>();
+      _bindings = List<Bindings>();
       json['bindings'].forEach((v) {
-        _bindings.add(new Bindings.fromJson(v));
+        _bindings.add(Bindings.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = Map<String, dynamic>();
     data['loginType'] = this._loginType;
     data['code'] = this._code;
+    data['token'] = this._token;
     if (this._account != null) {
       data['account'] = this._account.toJson();
     }

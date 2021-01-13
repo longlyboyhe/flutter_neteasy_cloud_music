@@ -1,6 +1,6 @@
 
 
-import 'package:flutter_netease_cloud_music/pages/model/play_list.dart';
+import 'package:flutter_netease_cloud_music/model/play_list.dart';
 
 class SongDetailData {
   List<Songs> _songs;

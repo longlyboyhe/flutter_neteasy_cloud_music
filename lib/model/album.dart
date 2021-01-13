@@ -1,38 +1,45 @@
 class AlbumData {
   int _total;
-  List<Albums> _albums;
+  List<Albums> _weekData;
   int _code;
+  bool _hasMore;
 
-  AlbumData({int total, List<Albums> albums, int code}) {
+  AlbumData({int total, List<Albums> weekData, int code,bool hasMore}) {
     this._total = total;
-    this._albums = albums;
+    this._weekData = weekData;
     this._code = code;
+    this._hasMore = hasMore;
   }
 
   int get total => _total;
   set total(int total) => _total = total;
-  List<Albums> get albums => _albums;
-  set albums(List<Albums> albums) => _albums = albums;
+  List<Albums> get weekData => _weekData;
+  set weekData(List<Albums> weekData) => _weekData = weekData;
   int get code => _code;
   set code(int code) => _code = code;
-
+  bool get hasMore => _hasMore;
+  set hasMore(bool value) {
+    _hasMore = value;
+  }
   AlbumData.fromJson(Map<String, dynamic> json) {
     _total = json['total'];
-    if (json['albums'] != null) {
-      _albums = new List<Albums>();
-      json['albums'].forEach((v) {
-        _albums.add(new Albums.fromJson(v));
+    if (json['weekData'] != null) {
+      _weekData = new List<Albums>();
+      json['weekData'].forEach((v) {
+        _weekData.add(new Albums.fromJson(v));
       });
     }
+    _hasMore = json['hasMore'];
     _code = json['code'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['total'] = this._total;
-    if (this._albums != null) {
-      data['albums'] = this._albums.map((v) => v.toJson()).toList();
+    if (this._weekData != null) {
+      data['weekData'] = this._weekData.map((v) => v.toJson()).toList();
     }
+    data['hashMore'] = this._hasMore;
     data['code'] = this._code;
     return data;
   }
@@ -353,7 +360,7 @@ class Artist {
   String _picUrl;
   String _name;
   int _id;
-  List<String> _transNames;
+  List<String> _alias;
   String _img1v1IdStr;
 
   Artist(
@@ -369,7 +376,7 @@ class Artist {
         String picUrl,
         String name,
         int id,
-        List<String> transNames,
+        List<String> alias,
         String img1v1IdStr}) {
     this._img1v1Id = img1v1Id;
     this._topicPerson = topicPerson;
@@ -383,7 +390,7 @@ class Artist {
     this._picUrl = picUrl;
     this._name = name;
     this._id = id;
-    this._transNames = transNames;
+    this._alias = alias;
     this._img1v1IdStr = img1v1IdStr;
   }
 
@@ -411,8 +418,8 @@ class Artist {
   set name(String name) => _name = name;
   int get id => _id;
   set id(int id) => _id = id;
-  List<String> get transNames => _transNames;
-  set transNames(List<String> transNames) => _transNames = transNames;
+  List<String> get alias => _alias;
+  set alias(List<String> alias) => _alias = alias;
   String get img1v1IdStr => _img1v1IdStr;
   set img1v1IdStr(String img1v1IdStr) => _img1v1IdStr = img1v1IdStr;
 
@@ -429,7 +436,7 @@ class Artist {
     _picUrl = json['picUrl'];
     _name = json['name'];
     _id = json['id'];
-    _transNames = json['transNames'] == null ? List() : json['transNames'].cast<String>();
+    _alias = json['alias'] == null ? List() : json['alias'].cast<String>();
     _img1v1IdStr = json['img1v1Id_str'];
   }
 
@@ -447,7 +454,7 @@ class Artist {
     data['picUrl'] = this._picUrl;
     data['name'] = this._name;
     data['id'] = this._id;
-    data['transNames'] = this._transNames;
+    data['alias'] = this._alias;
     data['img1v1Id_str'] = this._img1v1IdStr;
     return data;
   }
