@@ -5,6 +5,7 @@ import 'package:flutter_netease_cloud_music/app/config/constants.dart';
 import 'package:flutter_netease_cloud_music/app/config/route.dart';
 import 'package:flutter_netease_cloud_music/app/utils/cache/sp_util.dart';
 import 'package:flutter_netease_cloud_music/app/utils/http/net_utils.dart';
+import 'package:flutter_netease_cloud_music/app/utils/show/log_util.dart';
 
 import 'action.dart';
 import 'state.dart';
@@ -22,6 +23,7 @@ void _toMainPage(Context<SplashState> ctx) async{
   if(SpUtil.get(Constants.USER_INFO) != null){
     await NetUtils.refreshLogin(ctx.context).then((value){
       if(value!=null&&value.data != -1){
+        LogUtil.e(value,tag: "444444");
         Navigator.pushNamed(ctx.context, RouteConfig.mainPage);
       }else{
         Navigator.pushNamed(ctx.context, RouteConfig.loginPage);

@@ -54,6 +54,7 @@ Widget buildView(MainState state, Dispatch dispatch, ViewService viewService) {
                         unselectedLabelColor: Colors.black,
                         labelColor: Colors.black,
                         indicator: UnderlineTabIndicator(),
+                        indicatorColor: Colors.black,
                         controller: state.tabController,
                         tabs: [
                           Tab(

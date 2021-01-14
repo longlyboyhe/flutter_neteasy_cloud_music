@@ -5,18 +5,18 @@ import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
 
-class MyPage extends Page<MyState, Map<String, dynamic>> {
-  MyPage()
+class dailysongsPage extends Page<dailysongsState, Map<String, dynamic>> {
+  dailysongsPage()
       : super(
             initState: initState,
             effect: buildEffect(),
             reducer: buildReducer(),
             view: buildView,
-            dependencies: Dependencies<MyState>(
+            dependencies: Dependencies<dailysongsState>(
                 adapter: null,
-                slots: <String, Dependent<MyState>>{
+                slots: <String, Dependent<dailysongsState>>{
                 }),
-            middleware: <Middleware<MyState>>[
+            middleware: <Middleware<dailysongsState>>[
             ],);
 
 }

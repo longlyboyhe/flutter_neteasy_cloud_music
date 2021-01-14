@@ -25,13 +25,15 @@ class SpUtil {
       case double:
         instance.setDouble(key, value as double);
         break;
+      case List:
+        instance.setStringList(key, value as List);
+        break;
     }
   }
 
   /// 读取数据
   static Future<T> get<T>(String key) async {
     SharedPreferences instance = await SharedPreferences.getInstance();
-
     T res;
     switch (T) {
       case String:
@@ -46,7 +48,15 @@ class SpUtil {
       case double:
         res = instance.getDouble(key) as T;
         break;
+      case List:
+        res = instance.getStringList(key) as T;
+        break;
     }
     return res;
+  }
+
+  static void remove(String key) async{
+    SharedPreferences instance = await SharedPreferences.getInstance();
+    instance.remove(key);
   }
 }

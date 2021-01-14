@@ -15,15 +15,26 @@ class RouteConfig {
   ///登录
   static const String loginPage = 'page/login';
 
-  ///注册
-  static const String registerPage = 'page/main/login/register';
+  ///歌单详情
+  static const String playList = 'page/main/login/register';
 
-  ///新闻主页面
-  static const String homePage = 'page/home';
+  ///每日推荐
+  static const String dailySongs = 'page/home';
 
-  ///展示文章内容，统一的容器
-  static const String webViewPage = 'page/webview';
+  ///排行榜
+  static const String topList = 'page/webview';
 
+  ///播放歌曲页面
+  static const String playSongs = 'page/webview';
+
+  ///搜索页面
+  static const String search = 'page/webview';
+
+  ///查看图片页面
+  static const String viewPic = 'page/webview';
+
+  ///用户详情页面
+  static const String userDetail = 'page/webview';
 
   ///将你的路由名称和页面映射在一起，比如：RouteConfig.homePage: HomePage(),
   static final AbstractRoutes routes = PageRoutes(
