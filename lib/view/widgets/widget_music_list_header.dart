@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_cloud_music/app/utils/ui/common_text_style.dart';
+import 'package:flutter_netease_cloud_music/model/play_songs_model.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'h_empty_view.dart';
 
@@ -19,10 +20,9 @@ class MusicListHeader extends StatelessWidget implements PreferredSizeWidget {
           top: Radius.circular(ScreenUtil().setWidth(30))),
       child: Container(
         color: Colors.white,
-        child: Consumer<PlaySongsModel>(builder: (context, model, child) {
-          return InkWell(
+        child: InkWell(
             onTap: (){
-              onTap(model);
+              //onTap(model);
             },
             child: SizedBox.fromSize(
               size: preferredSize,
@@ -56,8 +56,7 @@ class MusicListHeader extends StatelessWidget implements PreferredSizeWidget {
                 ],
               ),
             ),
-          );
-        }),
+        ),
       ),
     );
   }

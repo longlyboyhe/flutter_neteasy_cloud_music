@@ -5,8 +5,8 @@ import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
 
-class dailysongsPage extends Page<dailysongsState, Map<String, dynamic>> {
-  dailysongsPage()
+class DailySongsPage extends Page<dailysongsState, Map<String, dynamic>> {
+  DailySongsPage()
       : super(
             initState: initState,
             effect: buildEffect(),

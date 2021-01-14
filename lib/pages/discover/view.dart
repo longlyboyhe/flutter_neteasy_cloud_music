@@ -7,6 +7,7 @@ import 'package:flutter_netease_cloud_music/app/utils/ui/common_text_style.dart'
 import 'package:flutter_netease_cloud_music/model/album.dart';
 import 'package:flutter_netease_cloud_music/model/mv.dart';
 import 'package:flutter_netease_cloud_music/model/recommend.dart';
+import 'package:flutter_netease_cloud_music/pages/discover/action.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/h_empty_view.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/v_empty_view.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/widget_banner.dart' ;
@@ -33,7 +34,7 @@ Widget buildView(DiscoverState state, Dispatch dispatch, ViewService viewService
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 VEmptyView(40),
-                _buildHomeCategoryList(),
+                _buildHomeCategoryList(dispatch),
                 VEmptyView(20),
                 Text(
                   '推荐歌单',
@@ -86,7 +87,7 @@ Widget _buildBanner() {
 }
 
 /// 构建分类列表
-Widget _buildHomeCategoryList() {
+Widget _buildHomeCategoryList(Dispatch dispatch) {
   var map = {
     '每日推荐': 'images/icon_daily.png',
     '歌单': 'images/icon_playlist.png',
@@ -113,7 +114,7 @@ Widget _buildHomeCategoryList() {
           onTap: () {
             switch (index) {
               case 0:
-
+                dispatch(DiscoverActionCreator.goDailySongsPageAction());
                 //NavigatorUtil.goDailySongsPage(context);
                 break;
               case 1:

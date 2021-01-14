@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_netease_cloud_music/app/utils/ui/common_text_style.dart';
+import 'package:flutter_netease_cloud_music/model/music.dart';
+import 'package:flutter_netease_cloud_music/view/widgets/rounded_net_image.dart';
+import 'package:flutter_netease_cloud_music/view/widgets/v_empty_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:netease_cloud_music/model/music.dart';
-import 'package:netease_cloud_music/widgets/rounded_net_image.dart';
-import 'package:netease_cloud_music/widgets/v_empty_view.dart';
-
-import '../application.dart';
-import 'common_text_style.dart';
 import 'h_empty_view.dart';
 
 class WidgetMusicListItem extends StatelessWidget {
@@ -20,7 +18,7 @@ class WidgetMusicListItem extends StatelessWidget {
       behavior: HitTestBehavior.translucent,
       onTap: onTap,
       child: Container(
-        width: Application.screenWidth,
+        width: ScreenUtil.screenWidth,
         height: ScreenUtil().setWidth(120),
         child: Row(
           mainAxisSize: MainAxisSize.min,
