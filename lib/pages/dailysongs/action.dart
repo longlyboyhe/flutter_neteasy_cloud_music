@@ -1,10 +1,10 @@
 import 'package:fish_redux/fish_redux.dart';
 
 //TODO replace with your own action
-enum dailysongsAction { action }
+enum DailySongsAction { action }
 
-class dailysongsActionCreator {
+class DailySongsActionCreator {
   static Action onAction() {
-    return const Action(dailysongsAction.action);
+    return const Action(DailySongsAction.action);
   }
 }

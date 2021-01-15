@@ -1,13 +1,16 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter_netease_cloud_music/model/daily_songs.dart';
 
-class dailysongsState implements Cloneable<dailysongsState> {
-
+class DailySongsState implements Cloneable<DailySongsState> {
+  DailySongsData dailySongsData;
   @override
-  dailysongsState clone() {
-    return dailysongsState();
+  DailySongsState clone() {
+    return DailySongsState()
+    ..dailySongsData = dailySongsData
+    ;
   }
 }
 
-dailysongsState initState(Map<String, dynamic> args) {
-  return dailysongsState();
+DailySongsState initState(Map<String, dynamic> args) {
+  return DailySongsState();
 }

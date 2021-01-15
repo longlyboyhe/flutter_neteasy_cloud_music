@@ -7,7 +7,6 @@ import 'package:flutter_netease_cloud_music/app/utils/ui/common_text_style.dart'
 import 'package:flutter_netease_cloud_music/model/album.dart';
 import 'package:flutter_netease_cloud_music/model/mv.dart';
 import 'package:flutter_netease_cloud_music/model/recommend.dart';
-import 'package:flutter_netease_cloud_music/pages/discover/action.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/h_empty_view.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/v_empty_view.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/widget_banner.dart' ;
@@ -114,7 +113,7 @@ Widget _buildHomeCategoryList(Dispatch dispatch) {
           onTap: () {
             switch (index) {
               case 0:
-                dispatch(DiscoverActionCreator.goDailySongsPageAction());
+                // dispatch(DiscoverActionCreator.goDailySongsPageAction());
                 //NavigatorUtil.goDailySongsPage(context);
                 break;
               case 1:

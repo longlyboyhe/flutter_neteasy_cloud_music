@@ -3,15 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_netease_cloud_music/app/utils/data/date_util.dart';
 import 'package:flutter_netease_cloud_music/model/daily_songs.dart';
 import 'package:flutter_netease_cloud_music/model/music.dart';
-import 'package:flutter_netease_cloud_music/model/play_songs_model.dart';
-import 'package:flutter_netease_cloud_music/model/song.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/widget_music_list_item.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/widget_play_list_app_bar.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'state.dart';
 
 Widget buildView(
-    dailysongsState state, Dispatch dispatch, ViewService viewService) {
+    DailySongsState state, Dispatch dispatch, ViewService viewService) {
   double _expandedHeight = ScreenUtil().setWidth(340);
   int _count;
   return Scaffold(
@@ -68,22 +66,33 @@ Widget buildView(
               SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    // this.data = data;
-                    // var d = data.recommend[index];
-                    return Container();
-                    //   WidgetMusicListItem(
-                    //   MusicData(
-                    //       mvid: d.mvid,
-                    //       picUrl: d.album.picUrl,
-                    //       songName: d.name,
-                    //       artists:
-                    //           "${d.artists.map((a) => a.name).toList().join('/')} - ${d.album.name}"),
-                    //   onTap: () {
-                    //     playSongs(model, data, index);
-                    //   },
-                    // );
+                    DailySongsData mDailySongsData = state.dailySongsData;
+                    if(mDailySongsData!=null){
+                      var data = mDailySongsData.data;
+                      if(data!=null){
+                        List<DailySongs> lds = data.dailySongs;
+                        DailySongs ds = lds.elementAt(index);
+                        return WidgetMusicListItem(
+                          MusicData(
+                              mvid: ds.al.id,
+                              picUrl: ds.al.picUrl,
+                              songName: ds.name,
+                              artists:""
+                              //"${ds.originSongSimpleData.artists.map((a) => a.name).toList().join('/')} - ${ds.originSongSimpleData.albumMeta.name}"
+                              ),
+                          onTap: () {
+                            playSongs(ds, index);
+                          },
+                        );
+                      }else{
+                        return Container();
+                      }
+                    }else{
+                      return Container();
+                    }
+
                   },
-                  childCount: 0,
+                  childCount: 3,
                 ),
               )
             ],
@@ -97,18 +106,18 @@ Widget buildView(
   );
 }
 
-void playSongs(PlaySongsModel model, DailySongsData data, int index) {
-  model.playSongs(
-    data.recommend
-        .map((r) => Song(
-              r.id,
-              name: r.name,
-              picUrl: r.album.picUrl,
-              artists: '${r.artists.map((a) => a.name).toList().join('/')}',
-            ))
-        .toList(),
-    index: index,
-  );
+void playSongs(DailySongs ds, int index) {
+  // model.playSongs(
+  //   data.recommend
+  //       .map((r) => Song(
+  //             r.id,
+  //             name: r.name,
+  //             picUrl: r.album.picUrl,
+  //             artists: '${r.artists.map((a) => a.name).toList().join('/')}',
+  //           ))
+  //       .toList(),
+  //   index: index,
+  // );
 
   ///NavigatorUtil.goPlaySongsPage(context);
 }

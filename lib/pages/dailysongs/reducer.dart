@@ -3,15 +3,15 @@ import 'package:fish_redux/fish_redux.dart';
 import 'action.dart';
 import 'state.dart';
 
-Reducer<dailysongsState> buildReducer() {
+Reducer<DailySongsState> buildReducer() {
   return asReducer(
-    <Object, Reducer<dailysongsState>>{
-      dailysongsAction.action: _onAction,
+    <Object, Reducer<DailySongsState>>{
+      DailySongsAction.action: _onAction,
     },
   );
 }
 
-dailysongsState _onAction(dailysongsState state, Action action) {
-  final dailysongsState newState = state.clone();
+DailySongsState _onAction(DailySongsState state, Action action) {
+  final DailySongsState newState = state.clone();
   return newState;
 }
