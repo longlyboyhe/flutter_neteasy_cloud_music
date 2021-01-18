@@ -14,6 +14,7 @@ import 'package:flutter_netease_cloud_music/model/banner.dart' as HomeBanner;
 import 'package:flutter_netease_cloud_music/view/widgets/widget_future_builder.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/widget_play_list.dart';
 import 'package:flutter_screenutil/screenutil.dart';
+import 'action.dart';
 import 'state.dart';
 
 Widget buildView(DiscoverState state, Dispatch dispatch, ViewService viewService){
@@ -113,7 +114,7 @@ Widget _buildHomeCategoryList(Dispatch dispatch) {
           onTap: () {
             switch (index) {
               case 0:
-                // dispatch(DiscoverActionCreator.goDailySongsPageAction());
+                dispatch(DiscoverActionCreator.goDailySongsPageAction());
                 //NavigatorUtil.goDailySongsPage(context);
                 break;
               case 1:
