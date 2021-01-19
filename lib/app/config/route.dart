@@ -2,6 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_netease_cloud_music/pages/dailysongs/page.dart';
 import 'package:flutter_netease_cloud_music/pages/login/page.dart';
 import 'package:flutter_netease_cloud_music/pages/main/page.dart';
+import 'package:flutter_netease_cloud_music/pages/player/page.dart';
 import 'package:flutter_netease_cloud_music/pages/splash/page.dart';
 
 ///路由管理
@@ -26,7 +27,7 @@ class RouteConfig {
   static const String topList = 'page/webview';
 
   ///播放歌曲页面
-  static const String playSongs = 'page/webview';
+  static const String playSongs = 'page/player';
 
   ///搜索页面
   static const String search = 'page/webview';
@@ -44,6 +45,7 @@ class RouteConfig {
       RouteConfig.loginPage: LoginPage(),
       RouteConfig.mainPage: MainPage(),
       RouteConfig.dailySongs: DailySongsPage(),
+      RouteConfig.playSongs: PlayerPage(),
     },
   );
 }

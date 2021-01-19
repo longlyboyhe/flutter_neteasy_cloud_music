@@ -1,18 +1,18 @@
 import 'dart:ui';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_cloud_music/app/utils/data/date_util.dart';
 import 'package:flutter_netease_cloud_music/app/utils/ui/common_text_style.dart';
 import 'package:flutter_netease_cloud_music/model/daily_songs.dart';
-import 'package:flutter_netease_cloud_music/model/music.dart';
-import 'package:flutter_netease_cloud_music/model/play_songs_model.dart';
+import 'package:flutter_netease_cloud_music/model/song.dart';
 import 'package:flutter_netease_cloud_music/pages/dailysongs/action.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/flexible_detail_bar.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/h_empty_view.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/rounded_net_image.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/v_empty_view.dart';
-import 'package:flutter_netease_cloud_music/view/widgets/widget_play.dart';
+import 'package:flutter_netease_cloud_music/view/widgets/widget_round_img.dart';
 import 'package:flutter_screenutil/screenutil.dart';
 import 'state.dart';
 
@@ -24,7 +24,6 @@ Widget buildView(
   if (mDailySongs != null) {
     count = mDailySongs.length;
   }
-  PlaySongsModel playSongsModel =  state.playSongsModel;
   return Scaffold(
     backgroundColor: Colors.white,
     body: Stack(
@@ -54,7 +53,7 @@ Widget buildView(
                         color: Colors.white,
                         child: InkWell(
                           onTap: () {
-                            dispatch(DailySongsActionCreator.onPalyAllAction(mDailySongs));
+                            // dispatch(DailySongsActionCreator.onPalyAllAction(mDailySongs));
                           },
                           child: SizedBox.fromSize(
                             size: Size.fromHeight(ScreenUtil().setWidth(100)),
@@ -159,67 +158,90 @@ Widget buildView(
                     if (mDailySongs != null) {
                       data = mDailySongs.elementAt(index);
                     }
-                    return Container(
-                      width: ScreenUtil.screenWidth,
-                      height: ScreenUtil().setWidth(120),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          data?.al?.picUrl == null
-                              ? Container()
-                              : HEmptyView(15),
-                          data?.al?.picUrl == null
-                              ? Container()
-                              : RoundedNetImage(
-                                  '${data.al.picUrl}?param=150y150',
-                                  width: 100,
-                                  height: 100,
-                                  radius: 5,
-                                ),
-                          data?.al?.picUrl == null
-                              ? Container()
-                              : HEmptyView(10),
-                          Expanded(
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  data?.name ?? "歌曲名称",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: commonTextStyle,
-                                ),
-                                VEmptyView(10),
-                                Text(
-                                  '${data?.ar?.map((a) => a?.name)?.toList()?.join('/')} - ${data?.al?.name}',
-                                  style: smallGrayTextStyle,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: data?.id == 0
+                    return GestureDetector(
+                      onTap: () {
+                        dispatch(DailySongsActionCreator.goPalyPageAction(data));
+                      },
+                      child: Container(
+                        width: ScreenUtil.screenWidth,
+                        height: ScreenUtil().setWidth(120),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            data?.al?.picUrl == null
                                 ? Container()
-                                : IconButton(
-                                    icon: Icon(Icons.play_circle_outline),
-                                    onPressed: () {},
-                                    color: Colors.grey,
+                                : HEmptyView(15),
+                            data?.al?.picUrl == null
+                                ? Container()
+                                : RoundedNetImage(
+                                    '${data.al.picUrl}?param=150y150',
+                                    width: 100,
+                                    height: 100,
+                                    radius: 5,
                                   ),
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: IconButton(
-                              icon: Icon(Icons.more_vert),
-                              onPressed: () {},
-                              color: Colors.grey,
+                            data?.al?.picUrl == null
+                                ? Container()
+                                : HEmptyView(10),
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    data?.name ?? "歌曲名称",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: commonTextStyle,
+                                  ),
+                                  VEmptyView(10),
+                                  Text(
+                                    '${data?.ar?.map((a) => a?.name)?.toList()?.join('/')} - ${data?.al?.name}',
+                                    style: smallGrayTextStyle,
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                            Align(
+                              alignment: Alignment.center,
+                              child: data?.id == 0
+                                  ? Container()
+                                  : IconButton(
+                                      icon: Icon(Icons.play_circle_outline),
+                                      onPressed: () {
+                                        Song song = Song(data?.id,
+                                            name: data?.name,
+                                            artists:
+                                                '${data?.ar?.map((a) => a?.name)?.toList()}',
+                                            picUrl: data?.al?.picUrl);
+                                        if (state.curState == null ||
+                                            state.currentPlaySong.id !=
+                                                song.id) {
+                                          dispatch(
+                                              DailySongsActionCreator.onPaly(
+                                                  song));
+                                        } else if (state.currentPlaySong.id ==
+                                            song.id) {
+                                          /// 暂停、恢复
+                                          dispatch(DailySongsActionCreator
+                                              .onPauseOrResume(song));
+                                        }
+                                      },
+                                      color: Colors.grey,
+                                    ),
+                            ),
+                            Align(
+                              alignment: Alignment.center,
+                              child: IconButton(
+                                icon: Icon(Icons.more_vert),
+                                onPressed: () {},
+                                color: Colors.grey,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -229,7 +251,82 @@ Widget buildView(
             ],
           ),
         ),
-        PlayWidget(model: playSongsModel),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Container(
+            width: ScreenUtil.screenWidth,
+            height: ScreenUtil().setWidth(110) + ScreenUtil.bottomBarHeight,
+            decoration: BoxDecoration(
+                border: Border(top: BorderSide(color: Colors.grey[200])),
+                color: Colors.white),
+            alignment: Alignment.topCenter,
+            padding: EdgeInsets.symmetric(vertical: ScreenUtil().setWidth(10)),
+            child: Container(
+              width: ScreenUtil.screenWidth,
+              height: ScreenUtil().setWidth(110),
+              padding:
+                  EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(30)),
+              alignment: Alignment.center,
+              child: GestureDetector(
+                behavior: HitTestBehavior.translucent,
+                onTap: () {
+                  ///TODO 跳转到播放页面
+                  // NavigatorUtil.goPlaySongsPage(context);
+                },
+                child: Row(
+                  children: <Widget>[
+                    RoundImgWidget(state.currentPlaySong?.picUrl ?? "头像", 80),
+                    HEmptyView(10),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text(
+                            state.currentPlaySong?.name ?? "名称",
+                            style: commonTextStyle,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          Text(
+                            state.currentPlaySong?.artists,
+                            style: common13TextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        if (state.curState == null) {
+                          dispatch(DailySongsActionCreator.onPaly(
+                              state.currentPlaySong));
+                        } else {
+                          /// 暂停、恢复
+                          dispatch(DailySongsActionCreator.onPauseOrResume(
+                              state.currentPlaySong));
+                        }
+                      },
+                      child: Image.asset(
+                        state.curState == AudioPlayerState.PLAYING
+                            ? 'images/pause.png'
+                            : 'images/play.png',
+                        width: ScreenUtil().setWidth(50),
+                      ),
+                    ),
+                    HEmptyView(15),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Image.asset(
+                        'images/list.png',
+                        width: ScreenUtil().setWidth(50),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
       ],
     ),
   );
@@ -246,30 +343,4 @@ List<DailySongs> getDailySongs(DailySongsState state) {
     return null;
   }
   return null;
-}
-
-void playSongs(DailySongs ds, int index) {
-  // model.playSongs(
-  //   data.recommend
-  //       .map((r) => Song(
-  //             r.id,
-  //             name: r.name,
-  //             picUrl: r.album.picUrl,
-  //             artists: '${r.artists.map((a) => a.name).toList().join('/')}',
-  //           ))
-  //       .toList(),
-  //   index: index,
-  // );
-
-  ///NavigatorUtil.goPlaySongsPage(context);
-}
-
-void setCount(int count) {
-  Future.delayed(Duration(milliseconds: 300), () {
-    // if (mounted) {
-    //   setState(() {
-    //     _count = count;
-    //   });
-    // }
-  });
 }

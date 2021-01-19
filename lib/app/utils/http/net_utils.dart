@@ -6,6 +6,7 @@ import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_netease_cloud_music/app/utils/show/log_util.dart';
 import 'package:flutter_netease_cloud_music/app/utils/show/toast_util.dart';
 import 'package:flutter_netease_cloud_music/model/recommend.dart';
 import 'package:flutter_netease_cloud_music/model/album.dart';
@@ -328,14 +329,14 @@ class NetUtils {
 
   /// Music
   static Future<String> getMusicURL(BuildContext context, id) async {
-    var m10s = await _fm10s;
-    final _random = new Random();
-    var m10 = m10s[_random.nextInt(m10s.length)].address;
-
+    // var m10s = await _fm10s;
+    // final _random = new Random();
+    // var m10 = m10s[_random.nextInt(m10s.length)].address;
     var response =
         await _get(context, '/song/url?id=$id', isShowLoading: context != null);
-    return response.data['data'][0]["url"]
-        .replaceFirst('m10.music.126.net', m10 + '/m10.music.126.net');
+    LogUtil.e('response:$response',tag: "3");
+    LogUtil.e('data:${response.data['data'][0]["url"]}',tag: "4");
+    return response.data['data'][0]["url"];
   }
 
   /// 获取用户信息

@@ -9,8 +9,8 @@ Reducer<DailySongsState> buildReducer() {
   return asReducer(
     <Object, Reducer<DailySongsState>>{
       DailySongsAction.update: _onUpdateAction,
-      DailySongsAction.play_all:_onPlyAllAction,
-      DailySongsAction.play_one:_onPlyOneAction,
+      DailySongsAction.update_current_song: _onUpdateCurrentAction,
+      DailySongsAction.progress:_onPlyProgressAction,
     },
   );
 }
@@ -22,30 +22,43 @@ DailySongsState _onUpdateAction(DailySongsState state, Action action) {
   DailySongs ds = dailySongsData?.data?.dailySongs?.first;
   if(ds!=null){
     Song song = new Song(ds.id,name:ds.name,picUrl: ds.al.picUrl,artists: '${ds?.ar?.map((a) => a?.name)}');
-    newState.playSongsModel?.playSong(song);
+    newState.currentPlaySong = song;
   }
   return newState;
 }
 
-DailySongsState _onPlyOneAction(DailySongsState state, Action action) {
+DailySongsState _onUpdateCurrentAction(DailySongsState state, Action action) {
   final DailySongsState newState = state.clone();
-  List<DailySongs>  dailySongsData = action.payload;
-  DailySongs ds = dailySongsData?.first;
-  if(ds!=null){
-    Song song = new Song(ds.mv,name:ds.name,picUrl: ds.al.picUrl,artists: '${ds?.ar?.map((a) => a?.name)}');
-    newState.playSongsModel?.playSong(song);
-  }
+  Song song = action.payload;
+  newState.currentPlaySong = song;
   return newState;
 }
+// DailySongsState _onPlyOneAction(DailySongsState state, Action action) {
+//   final DailySongsState newState = state.clone();
+//   List<DailySongs>  dailySongsData = action.payload;
+//   DailySongs ds = dailySongsData?.first;
+//   if(ds!=null){
+//     Song song = new Song(ds.mv,name:ds.name,picUrl: ds.al.picUrl,artists: '${ds?.ar?.map((a) => a?.name)}');
+//     newState.playSongsModel?.playSong(song);
+//   }
+//   return newState;
+// }
+//
+// DailySongsState _onPlyAllAction(DailySongsState state, Action action) {
+//   final DailySongsState newState = state.clone();
+//   List<DailySongs> songs = action.payload;
+//   List<Song> _songs = [];
+//   for(DailySongs ds in songs){
+//    Song song = new Song(ds.mv,name:ds.name,picUrl: ds.al.picUrl,artists: '${ds?.ar?.map((a) => a?.name)}');
+//    _songs.add(song);
+//   }
+//   newState.playSongsModel?.playSongs(_songs);
+//   return newState;
+// }
 
-DailySongsState _onPlyAllAction(DailySongsState state, Action action) {
+DailySongsState _onPlyProgressAction(DailySongsState state, Action action) {
   final DailySongsState newState = state.clone();
-  List<DailySongs> songs = action.payload;
-  List<Song> _songs = [];
-  for(DailySongs ds in songs){
-   Song song = new Song(ds.mv,name:ds.name,picUrl: ds.al.picUrl,artists: '${ds?.ar?.map((a) => a?.name)}');
-   _songs.add(song);
-  }
-  newState.playSongsModel?.playSongs(_songs);
+  String progress = action.payload;
+  newState.progress = progress;
   return newState;
 }

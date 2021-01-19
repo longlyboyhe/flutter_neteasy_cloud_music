@@ -1,15 +1,25 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_netease_cloud_music/model/daily_songs.dart';
 import 'package:flutter_netease_cloud_music/model/play_songs_model.dart';
+import 'package:flutter_netease_cloud_music/model/song.dart';
 
 class DailySongsState implements Cloneable<DailySongsState> {
   DailySongsData dailySongsData;
-  PlaySongsModel playSongsModel;
+  AudioPlayer audioPlayer;
+  AudioPlayerState curState;
+  Duration curSongDuration;
+  String progress;
+  Song currentPlaySong;
   @override
   DailySongsState clone() {
     return DailySongsState()
-    ..dailySongsData = dailySongsData
-    ..playSongsModel = playSongsModel
+      ..dailySongsData = dailySongsData
+      ..audioPlayer = audioPlayer
+      ..curState =curState
+      ..curSongDuration =curSongDuration
+      ..progress = progress
+      ..currentPlaySong = currentPlaySong
     ;
   }
 }

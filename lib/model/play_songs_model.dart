@@ -5,6 +5,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_cloud_music/app/utils/cache/sp_util.dart';
 import 'package:flutter_netease_cloud_music/app/utils/http/net_utils.dart';
+import 'package:flutter_netease_cloud_music/app/utils/show/log_util.dart';
 import 'package:flutter_netease_cloud_music/app/utils/tool/fluro_convert_utils.dart';
 import 'package:flutter_netease_cloud_music/model/song.dart';
 
@@ -71,7 +72,8 @@ class PlaySongsModel with ChangeNotifier{
   void play() async {
     var songId = this._songs[curIndex].id;
     var url = await NetUtils.getMusicURL(null, songId);
-
+    LogUtil.e('url:$url',tag: "5");
+    LogUtil.e('songId:$songId',tag: "6");
     _audioPlayer.play(url);
     saveCurSong();
   }
@@ -80,6 +82,7 @@ class PlaySongsModel with ChangeNotifier{
   void togglePlay(){
     if (_audioPlayer.state == AudioPlayerState.PAUSED) {
       resumePlay();
+
     } else {
       pausePlay();
     }
