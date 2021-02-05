@@ -4,10 +4,12 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_cloud_music/app/utils/data/date_util.dart';
+import 'package:flutter_netease_cloud_music/app/utils/show/log_util.dart';
 import 'package:flutter_netease_cloud_music/app/utils/ui/common_text_style.dart';
 import 'package:flutter_netease_cloud_music/model/daily_songs.dart';
 import 'package:flutter_netease_cloud_music/model/song.dart';
 import 'package:flutter_netease_cloud_music/pages/dailysongs/action.dart';
+import 'package:flutter_netease_cloud_music/pages/player/action.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/flexible_detail_bar.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/h_empty_view.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/rounded_net_image.dart';
@@ -211,13 +213,14 @@ Widget buildView(
                                   : IconButton(
                                       icon: Icon(Icons.play_circle_outline),
                                       onPressed: () {
+                                        LogUtil.e("play");
+                                        viewService.broadcast(PlayerActionCreator.onInitStateAction());
                                         Song song = Song(data?.id,
                                             name: data?.name,
                                             artists:
                                                 '${data?.ar?.map((a) => a?.name)?.toList()}',
                                             picUrl: data?.al?.picUrl);
-                                        if (state.curState == null ||
-                                            state.currentPlaySong.id !=
+                                        if (state.currentPlaySong.id !=
                                                 song.id) {
                                           dispatch(
                                               DailySongsActionCreator.onPaly(
@@ -297,14 +300,14 @@ Widget buildView(
                     ),
                     GestureDetector(
                       onTap: () {
-                        if (state.curState == null) {
+                        // if (state.curState == null) {
                           dispatch(DailySongsActionCreator.onPaly(
                               state.currentPlaySong));
-                        } else {
-                          /// 暂停、恢复
-                          dispatch(DailySongsActionCreator.onPauseOrResume(
-                              state.currentPlaySong));
-                        }
+                        // } else {
+                        //   /// 暂停、恢复
+                        //   dispatch(DailySongsActionCreator.onPauseOrResume(
+                        //       state.currentPlaySong));
+                        // }
                       },
                       child: Image.asset(
                         state.curState == AudioPlayerState.PLAYING

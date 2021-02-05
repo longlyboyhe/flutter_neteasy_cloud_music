@@ -1,6 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 
 import 'effect.dart';
+import 'lyric_component.dart';
 import 'reducer.dart';
 import 'state.dart';
 import 'view.dart';
@@ -18,5 +19,8 @@ class LyricPage extends Page<LyricState, Map<String, dynamic>> {
                 }),
             middleware: <Middleware<LyricState>>[
             ],);
-
+  @override
+  ComponentState<LyricState> createState() {
+    return LyricComponentState();
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:fish_redux/fish_redux.dart';
+import 'package:flutter_netease_cloud_music/app/utils/tool/audio_player_manager.dart';
 import 'package:flutter_netease_cloud_music/model/daily_songs.dart';
 import 'package:flutter_netease_cloud_music/model/song.dart';
 
@@ -24,37 +25,18 @@ DailySongsState _onUpdateAction(DailySongsState state, Action action) {
     Song song = new Song(ds.id,name:ds.name,picUrl: ds.al.picUrl,artists: '${ds?.ar?.map((a) => a?.name)}');
     newState.currentPlaySong = song;
   }
+  newState.curState = AudioPlayerManager.instance.getState();
   return newState;
 }
 
 DailySongsState _onUpdateCurrentAction(DailySongsState state, Action action) {
   final DailySongsState newState = state.clone();
   Song song = action.payload;
+  newState.curState = AudioPlayerManager.instance.getState();
   newState.currentPlaySong = song;
   return newState;
 }
-// DailySongsState _onPlyOneAction(DailySongsState state, Action action) {
-//   final DailySongsState newState = state.clone();
-//   List<DailySongs>  dailySongsData = action.payload;
-//   DailySongs ds = dailySongsData?.first;
-//   if(ds!=null){
-//     Song song = new Song(ds.mv,name:ds.name,picUrl: ds.al.picUrl,artists: '${ds?.ar?.map((a) => a?.name)}');
-//     newState.playSongsModel?.playSong(song);
-//   }
-//   return newState;
-// }
-//
-// DailySongsState _onPlyAllAction(DailySongsState state, Action action) {
-//   final DailySongsState newState = state.clone();
-//   List<DailySongs> songs = action.payload;
-//   List<Song> _songs = [];
-//   for(DailySongs ds in songs){
-//    Song song = new Song(ds.mv,name:ds.name,picUrl: ds.al.picUrl,artists: '${ds?.ar?.map((a) => a?.name)}');
-//    _songs.add(song);
-//   }
-//   newState.playSongsModel?.playSongs(_songs);
-//   return newState;
-// }
+
 
 DailySongsState _onPlyProgressAction(DailySongsState state, Action action) {
   final DailySongsState newState = state.clone();

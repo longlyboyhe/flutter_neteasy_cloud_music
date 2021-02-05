@@ -6,12 +6,12 @@ import 'state.dart';
 Reducer<LyricState> buildReducer() {
   return asReducer(
     <Object, Reducer<LyricState>>{
-      LyricAction.action: _onAction,
+      LyricAction.update: _onUpdateAction,
     },
   );
 }
 
-LyricState _onAction(LyricState state, Action action) {
+LyricState _onUpdateAction(LyricState state, Action action) {
   final LyricState newState = state.clone();
   return newState;
 }

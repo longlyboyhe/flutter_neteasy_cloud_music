@@ -5,12 +5,12 @@ import 'package:flutter/material.dart' as mr;
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_cloud_music/app/utils/image/image_util.dart';
 import 'package:flutter_netease_cloud_music/app/utils/ui/common_text_style.dart';
-import 'package:flutter_netease_cloud_music/view/widgets/v_empty_view.dart';
+import 'package:flutter_netease_cloud_music/pages/lyric/page.dart';
 import 'package:flutter_netease_cloud_music/view/widgets/widget_round_img.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'state.dart';
 
-Widget buildView(PlayerState state, Dispatch dispatch, ViewService viewService) {
+Widget buildView(PlayPageState state, Dispatch dispatch, ViewService viewService) {
   return Scaffold(
     body: Stack(
       children: <Widget>[
@@ -110,7 +110,7 @@ Widget buildView(PlayerState state, Dispatch dispatch, ViewService viewService) 
                           ),
                         ],
                       ),
-                      // LyricPage(model),
+
                     ],
                   ),
                 ),

@@ -2,7 +2,7 @@ import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter_netease_cloud_music/pages/dailysongs/page.dart';
 import 'package:flutter_netease_cloud_music/pages/login/page.dart';
 import 'package:flutter_netease_cloud_music/pages/main/page.dart';
-import 'package:flutter_netease_cloud_music/pages/player/page.dart';
+import 'package:flutter_netease_cloud_music/pages/playpage/page.dart';
 import 'package:flutter_netease_cloud_music/pages/splash/page.dart';
 
 ///路由管理
@@ -45,7 +45,7 @@ class RouteConfig {
       RouteConfig.loginPage: LoginPage(),
       RouteConfig.mainPage: MainPage(),
       RouteConfig.dailySongs: DailySongsPage(),
-      RouteConfig.playSongs: PlayerPage(),
+      RouteConfig.playSongs: PlayPage(),
     },
   );
 }

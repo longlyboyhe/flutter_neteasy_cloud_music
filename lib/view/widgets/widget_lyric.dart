@@ -1,6 +1,5 @@
 import 'dart:ui';
 import 'dart:ui' as prefix0;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_netease_cloud_music/app/utils/data/date_util.dart';
 import 'package:flutter_netease_cloud_music/app/utils/ui/common_text_style.dart';

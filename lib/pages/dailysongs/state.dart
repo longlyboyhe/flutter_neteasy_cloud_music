@@ -6,18 +6,14 @@ import 'package:flutter_netease_cloud_music/model/song.dart';
 
 class DailySongsState implements Cloneable<DailySongsState> {
   DailySongsData dailySongsData;
-  AudioPlayer audioPlayer;
   AudioPlayerState curState;
-  Duration curSongDuration;
   String progress;
   Song currentPlaySong;
   @override
   DailySongsState clone() {
     return DailySongsState()
       ..dailySongsData = dailySongsData
-      ..audioPlayer = audioPlayer
       ..curState =curState
-      ..curSongDuration =curSongDuration
       ..progress = progress
       ..currentPlaySong = currentPlaySong
     ;
